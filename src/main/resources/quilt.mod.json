@@ -1,0 +1,42 @@
+{
+    "schema_version": 1,
+
+    "quilt_loader": {
+        "group": "${group}",
+        "id": "${modid}",
+        "version": "${version}",
+
+        "intermediate_mappings" : "net.fabricmc:intermediary",
+
+        "metadata": {
+            "name": "${display_name}",
+            "description": "Fix lighting sometimes 'leaking' through geometry of blocks.",
+            "contributors": {
+                "StartsMercury": "Author"
+            },
+
+            "contact": {
+                "issues": "https://github.com/StartsMercury/cosmic-light-bleed-fix/issues",
+                "sources": "https://github.com/StartsMercury/cosmic-light-bleed-fix"
+            },
+
+            "icon": "assets/cosmic-light-bleed-fix/icon.png"
+        },
+
+        "entrypoints": {
+        },
+
+        "depends": [
+            {
+                "id": "cosmicreach",
+                "versions": "*"
+            },
+            {
+                "id": "cosmicquilt",
+                "version": "*"
+            }
+        ]
+    },
+
+    "mixin": "cosmic-light-bleed-fix.mixins.json"
+}
