@@ -29,7 +29,11 @@ public abstract class ChunkMeshGroupMixin {
      * @return the new allocation size
      */
     @ModifyExpressionValue(
-        method = "getMeshData(Lfinalforeach/cosmicreach/savelib/ISavedChunk;)Lcom/badlogic/gdx/utils/Array;",
+        method = """
+            getMeshData(\
+                Lfinalforeach/cosmicreach/savelib/ISavedChunk;\
+            )Lcom/badlogic/gdx/utils/Array;\
+        """,
         at = @At(value = "CONSTANT", args = "intValue=8", ordinal = 0)
     )
     private static int expandBlockLightLevelArray(int original) {
@@ -46,7 +50,11 @@ public abstract class ChunkMeshGroupMixin {
      *     preceding cells if they are opaque or not.
      */
     @ModifyExpressionValue(
-        method = "getMeshData(Lfinalforeach/cosmicreach/savelib/ISavedChunk;)Lcom/badlogic/gdx/utils/Array;",
+        method = """
+            getMeshData(\
+                Lfinalforeach/cosmicreach/savelib/ISavedChunk;\
+            )Lcom/badlogic/gdx/utils/Array;\
+        """,
         at = @At(value = "CONSTANT", args = "intValue=8", ordinal = 1)
     )
     private static int expandSkyLightLevelArray(int original) {
@@ -209,7 +217,7 @@ public abstract class ChunkMeshGroupMixin {
      *
      * @param callback the injector callback
      * @param skyLightLevels the sky-light levels to modify
-     * @param opaqueBitMaskRef the opaque bit mask identifies positions blocking light
+     * @param opaqueBitMaskRef the opaque bit mask local ref
      * @param lightNxNyNz the sky-light level at {@code (-1, -1, -1)}
      * @param lightNxNy0z the sky-light level at {@code (-1, -1,  0)}
      * @param lightNxNyPz the sky-light level at {@code (-1, -1, +1)}
