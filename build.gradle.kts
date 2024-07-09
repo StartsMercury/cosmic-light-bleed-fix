@@ -11,7 +11,7 @@ object Constants {
     const val VERSION_COSMIC_REACH = "0.1.39"
     const val VERSION_COSMIC_QUILT = "2.1.1"
     const val VERSION_JAVA = "17"
-    const val VERSION_MODMENU = "1.0.4"
+    const val VERSION_MODMENU = "1.0.5"
 }
 
 plugins {
@@ -39,7 +39,7 @@ dependencies {
 
     // Mod Menu
     // modImplementation(
-    //     group = "org.codeberg.CRModders",
+    //     group = "dev.crmodders",
     //     name = "modmenu",
     //     version = Constants.VERSION_MODMENU,
     // )
