@@ -167,7 +167,7 @@ public abstract class ChunkMeshGroupMixin {
     }
 
     /**
-     * Adds `opaqueBitMask` to sky-light levels array's end.
+     * Adds {@code opaqueBitMask} to sky-light levels array's end.
      *
      * @param callback the injector callback
      * @param skyLightLevels the sky-light levels array to modify
@@ -187,6 +187,13 @@ public abstract class ChunkMeshGroupMixin {
         skyLightLevels[24] = opaqueBitMask;
     }
 
+    /**
+     * Retrieves {@code opaqueBitMask} from sky-light levels array's end.
+     *
+     * @param callback the injector callback
+     * @param skyLightLevels the sky-light levels array to read from
+     * @param opaqueBitMaskRef the opaque bit mask local ref to store to
+     */
     @Inject(method = "calculateSkyLightLevels", at = @At("HEAD"))
     private static void receiveOpaqueBitMask(
         final CallbackInfoReturnable<int[]> callback,
@@ -196,6 +203,40 @@ public abstract class ChunkMeshGroupMixin {
         opaqueBitMaskRef.set(skyLightLevels[24]);
     }
 
+    /**
+     * Replaces sky-light level calculations with one that separates light coming
+     * from an axis.
+     *
+     * @param callback the injector callback
+     * @param skyLightLevels the sky-light levels to modify
+     * @param opaqueBitMaskRef the opaque bit mask identifies positions blocking light
+     * @param lightNxNyNz the sky-light level at {@code (-1, -1, -1)}
+     * @param lightNxNy0z the sky-light level at {@code (-1, -1,  0)}
+     * @param lightNxNyPz the sky-light level at {@code (-1, -1, +1)}
+     * @param lightNx0yNz the sky-light level at {@code (-1,  0, -1)}
+     * @param lightNx0y0z the sky-light level at {@code (-1,  0,  0)}
+     * @param lightNx0yPz the sky-light level at {@code (-1,  0, +1)}
+     * @param lightNxPyNz the sky-light level at {@code (-1, +1, -1)}
+     * @param lightNxPy0z the sky-light level at {@code (-1, +1,  0)}
+     * @param lightNxPyPz the sky-light level at {@code (-1, +1, +1)}
+     * @param light0xNyNz the sky-light level at {@code ( 0, -1, -1)}
+     * @param light0xNy0z the sky-light level at {@code ( 0, -1,  0)}
+     * @param light0xNyPz the sky-light level at {@code ( 0, -1, +1)}
+     * @param light0x0yNz the sky-light level at {@code ( 0,  0, -1)}
+     * @param light0x0yPz the sky-light level at {@code ( 0,  0, +1)}
+     * @param light0xPyNz the sky-light level at {@code ( 0, +1, -1)}
+     * @param light0xPy0z the sky-light level at {@code ( 0, +1,  0)}
+     * @param light0xPyPz the sky-light level at {@code ( 0, +1, +1)}
+     * @param lightPxNyNz the sky-light level at {@code (+1, -1, -1)}
+     * @param lightPxNy0z the sky-light level at {@code (+1, -1,  0)}
+     * @param lightPxNyPz the sky-light level at {@code (+1, -1, +1)}
+     * @param lightPx0yNz the sky-light level at {@code (+1,  0, -1)}
+     * @param lightPx0y0z the sky-light level at {@code (+1,  0,  0)}
+     * @param lightPx0yPz the sky-light level at {@code (+1,  0, +1)}
+     * @param lightPxPyNz the sky-light level at {@code (+1, +1, -1)}
+     * @param lightPxPy0z the sky-light level at {@code (+1, +1,  0)}
+     * @param lightPxPyPz the sky-light level at {@code (+1, +1, +1)}
+     */
     @Inject(
         method = "calculateSkyLightLevels",
         at = @At(value = "CONSTANT", ordinal = 1, args = "intValue=0"),
