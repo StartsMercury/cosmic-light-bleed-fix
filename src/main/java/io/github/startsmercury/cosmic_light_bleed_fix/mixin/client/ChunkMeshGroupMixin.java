@@ -5,6 +5,8 @@ import static io.github.startsmercury.cosmic_light_bleed_fix.impl.client.CosmicL
 import com.badlogic.gdx.utils.Array;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import finalforeach.cosmicreach.rendering.ChunkMeshGroup;
 import finalforeach.cosmicreach.rendering.MeshData;
 import org.spongepowered.asm.mixin.Mixin;
@@ -177,12 +179,21 @@ public abstract class ChunkMeshGroupMixin {
         Lfinalforeach/cosmicreach/rendering/ChunkMeshGroup;\
         calculateSkyLightLevels(Lfinalforeach/cosmicreach/world/Chunk;[IIII)[I\
     """))
-    private static void passOpaqueBitMask(
+    private static void sendOpaqueBitMask(
         final CallbackInfoReturnable<Array<MeshData>> callback,
         final @Local(ordinal = 0) int[] skyLightLevels,
         final @Local(ordinal = 12) int opaqueBitMask
     ) {
         skyLightLevels[24] = opaqueBitMask;
+    }
+
+    @Inject(method = "calculateSkyLightLevels", at = @At("HEAD"))
+    private static void receiveOpaqueBitMask(
+        final CallbackInfoReturnable<int[]> callback,
+        final @Local(ordinal = 0, argsOnly = true) int[] skyLightLevels,
+        final @Share("opaqueBitMask") LocalIntRef opaqueBitMaskRef
+    ) {
+        opaqueBitMaskRef.set(skyLightLevels[24]);
     }
 
     @Inject(
@@ -193,6 +204,7 @@ public abstract class ChunkMeshGroupMixin {
     private static void overwriteSkyLightCalculation(
         final CallbackInfoReturnable<int[]> callback,
         final @Local(ordinal = 0, argsOnly = true) int[] skyLightLevels,
+        final @Share("opaqueBitMask") LocalIntRef opaqueBitMaskRef,
         final @Local(ordinal = 7) int lightNxNyNz,
         final @Local(ordinal = 8) int lightNxNy0z,
         final @Local(ordinal = 9) int lightNxNyPz,
@@ -220,7 +232,7 @@ public abstract class ChunkMeshGroupMixin {
         final @Local(ordinal = 31) int lightPxPy0z,
         final @Local(ordinal = 32) int lightPxPyPz
     ) {
-        final var opaqueBitMask = skyLightLevels[24];
+        final var opaqueBitMask = opaqueBitMaskRef.get();
 
 //      final var diaphanousNxNyNz = 0 == (opaqueBitMask & 1 << 6);
         final var diaphanousNxNy0z = 0 == (opaqueBitMask & 1 << 7);
