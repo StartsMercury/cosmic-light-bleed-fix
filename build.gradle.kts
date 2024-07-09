@@ -10,6 +10,7 @@ object Constants {
 
     const val VERSION_COSMIC_REACH = "0.1.39"
     const val VERSION_COSMIC_QUILT = "2.1.1"
+    const val VERSION_JAVA = "17"
     const val VERSION_MODMENU = "1.0.4"
 }
 
@@ -28,8 +29,7 @@ java {
     withSourcesJar()
     withJavadocJar()
 
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    toolchain.languageVersion = JavaLanguageVersion.of(Constants.VERSION_JAVA)
 }
 
 dependencies {
