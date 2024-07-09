@@ -124,15 +124,15 @@ public abstract class ChunkMeshGroupMixin {
     ) {
         // Order: negative-positive x, y, and z then binary count with digits
         //        negative-zero-positive in the placement orders z, y, and x.
-//      final var diaphanousNxNyNz = 0 == (diaphanousBitMask & 1 << 6);
+//      final var diaphanousNxNyNz = 0 == (opaqueBitMask & 1 << 6);
         final var diaphanousNxNy0z = 0 == (opaqueBitMask & 1 << 7);
-//      final var diaphanousNxNyPz = 0 == (diaphanousBitMask & 1 << 8);
+//      final var diaphanousNxNyPz = 0 == (opaqueBitMask & 1 << 8);
         final var diaphanousNx0yNz = 0 == (opaqueBitMask & 1 << 9);
         final var diaphanousNx0y0z = 0 == (opaqueBitMask & 1);
         final var diaphanousNx0yPz = 0 == (opaqueBitMask & 1 << 10);
-//      final var diaphanousNxPyNz = 0 == (diaphanousBitMask & 1 << 11);
+//      final var diaphanousNxPyNz = 0 == (opaqueBitMask & 1 << 11);
         final var diaphanousNxPy0z = 0 == (opaqueBitMask & 1 << 12);
-//      final var diaphanousNxPyPz = 0 == (diaphanousBitMask & 1 << 13);
+//      final var diaphanousNxPyPz = 0 == (opaqueBitMask & 1 << 13);
         final var diaphanous0xNyNz = 0 == (opaqueBitMask & 1 << 14);
         final var diaphanous0xNy0z = 0 == (opaqueBitMask & 1 << 2);
         final var diaphanous0xNyPz = 0 == (opaqueBitMask & 1 << 15);
@@ -141,15 +141,15 @@ public abstract class ChunkMeshGroupMixin {
         final var diaphanous0xPyNz = 0 == (opaqueBitMask & 1 << 16);
         final var diaphanous0xPy0z = 0 == (opaqueBitMask & 1 << 3);
         final var diaphanous0xPyPz = 0 == (opaqueBitMask & 1 << 17);
-//      final var diaphanousPxNyNz = 0 == (diaphanousBitMask & 1 << 18);
+//      final var diaphanousPxNyNz = 0 == (opaqueBitMask & 1 << 18);
         final var diaphanousPxNy0z = 0 == (opaqueBitMask & 1 << 19);
-//      final var diaphanousPxNyPz = 0 == (diaphanousBitMask & 1 << 20);
+//      final var diaphanousPxNyPz = 0 == (opaqueBitMask & 1 << 20);
         final var diaphanousPx0yNz = 0 == (opaqueBitMask & 1 << 21);
         final var diaphanousPx0y0z = 0 == (opaqueBitMask & 1 << 1);
         final var diaphanousPx0yPz = 0 == (opaqueBitMask & 1 << 22);
-//      final var diaphanousPxPyNz = 0 == (diaphanousBitMask & 1 << 23);
+//      final var diaphanousPxPyNz = 0 == (opaqueBitMask & 1 << 23);
         final var diaphanousPxPy0z = 0 == (opaqueBitMask & 1 << 24);
-//      final var diaphanousPxPyPz = 0 == (diaphanousBitMask & 1 << 25);
+//      final var diaphanousPxPyPz = 0 == (opaqueBitMask & 1 << 25);
 
         updateBlockLightLevelForCorner(blockLightLevels, CORNER_NxNyNz, diaphanous0x0yNz, diaphanous0xNy0z, diaphanous0xNyNz, diaphanousNx0y0z, diaphanousNx0yNz, diaphanousNxNy0z, light0x0yNz, light0xNy0z, light0xNyNz, lightNx0y0z, lightNx0yNz, lightNxNy0z, lightNxNyNz);
         updateBlockLightLevelForCorner(blockLightLevels, CORNER_NxNyPz, diaphanous0x0yPz, diaphanous0xNy0z, diaphanous0xNyPz, diaphanousNx0y0z, diaphanousNx0yPz, diaphanousNxNy0z, light0x0yPz, light0xNy0z, light0xNyPz, lightNx0y0z, lightNx0yPz, lightNxNy0z, lightNxNyPz);
@@ -220,34 +220,34 @@ public abstract class ChunkMeshGroupMixin {
         final @Local(ordinal = 31) int lightPxPy0z,
         final @Local(ordinal = 32) int lightPxPyPz
     ) {
-        final var diaphanousBitMask = skyLightLevels[24];
+        final var opaqueBitMask = skyLightLevels[24];
 
-//      final var diaphanousNxNyNz = 0 == (diaphanousBitMask & 1 << 6);
-        final var diaphanousNxNy0z = 0 == (diaphanousBitMask & 1 << 7);
-//      final var diaphanousNxNyPz = 0 == (diaphanousBitMask & 1 << 8);
-        final var diaphanousNx0yNz = 0 == (diaphanousBitMask & 1 << 9);
-        final var diaphanousNx0y0z = 0 == (diaphanousBitMask & 1);
-        final var diaphanousNx0yPz = 0 == (diaphanousBitMask & 1 << 10);
-//      final var diaphanousNxPyNz = 0 == (diaphanousBitMask & 1 << 11);
-        final var diaphanousNxPy0z = 0 == (diaphanousBitMask & 1 << 12);
-//      final var diaphanousNxPyPz = 0 == (diaphanousBitMask & 1 << 13);
-        final var diaphanous0xNyNz = 0 == (diaphanousBitMask & 1 << 14);
-        final var diaphanous0xNy0z = 0 == (diaphanousBitMask & 1 << 2);
-        final var diaphanous0xNyPz = 0 == (diaphanousBitMask & 1 << 15);
-        final var diaphanous0x0yNz = 0 == (diaphanousBitMask & 1 << 4);
-        final var diaphanous0x0yPz = 0 == (diaphanousBitMask & 1 << 5);
-        final var diaphanous0xPyNz = 0 == (diaphanousBitMask & 1 << 16);
-        final var diaphanous0xPy0z = 0 == (diaphanousBitMask & 1 << 3);
-        final var diaphanous0xPyPz = 0 == (diaphanousBitMask & 1 << 17);
-//      final var diaphanousPxNyNz = 0 == (diaphanousBitMask & 1 << 18);
-        final var diaphanousPxNy0z = 0 == (diaphanousBitMask & 1 << 19);
-//      final var diaphanousPxNyPz = 0 == (diaphanousBitMask & 1 << 20);
-        final var diaphanousPx0yNz = 0 == (diaphanousBitMask & 1 << 21);
-        final var diaphanousPx0y0z = 0 == (diaphanousBitMask & 1 << 1);
-        final var diaphanousPx0yPz = 0 == (diaphanousBitMask & 1 << 22);
-//      final var diaphanousPxPyNz = 0 == (diaphanousBitMask & 1 << 23);
-        final var diaphanousPxPy0z = 0 == (diaphanousBitMask & 1 << 24);
-//      final var diaphanousPxPyPz = 0 == (diaphanousBitMask & 1 << 25);
+//      final var diaphanousNxNyNz = 0 == (opaqueBitMask & 1 << 6);
+        final var diaphanousNxNy0z = 0 == (opaqueBitMask & 1 << 7);
+//      final var diaphanousNxNyPz = 0 == (opaqueBitMask & 1 << 8);
+        final var diaphanousNx0yNz = 0 == (opaqueBitMask & 1 << 9);
+        final var diaphanousNx0y0z = 0 == (opaqueBitMask & 1);
+        final var diaphanousNx0yPz = 0 == (opaqueBitMask & 1 << 10);
+//      final var diaphanousNxPyNz = 0 == (opaqueBitMask & 1 << 11);
+        final var diaphanousNxPy0z = 0 == (opaqueBitMask & 1 << 12);
+//      final var diaphanousNxPyPz = 0 == (opaqueBitMask & 1 << 13);
+        final var diaphanous0xNyNz = 0 == (opaqueBitMask & 1 << 14);
+        final var diaphanous0xNy0z = 0 == (opaqueBitMask & 1 << 2);
+        final var diaphanous0xNyPz = 0 == (opaqueBitMask & 1 << 15);
+        final var diaphanous0x0yNz = 0 == (opaqueBitMask & 1 << 4);
+        final var diaphanous0x0yPz = 0 == (opaqueBitMask & 1 << 5);
+        final var diaphanous0xPyNz = 0 == (opaqueBitMask & 1 << 16);
+        final var diaphanous0xPy0z = 0 == (opaqueBitMask & 1 << 3);
+        final var diaphanous0xPyPz = 0 == (opaqueBitMask & 1 << 17);
+//      final var diaphanousPxNyNz = 0 == (opaqueBitMask & 1 << 18);
+        final var diaphanousPxNy0z = 0 == (opaqueBitMask & 1 << 19);
+//      final var diaphanousPxNyPz = 0 == (opaqueBitMask & 1 << 20);
+        final var diaphanousPx0yNz = 0 == (opaqueBitMask & 1 << 21);
+        final var diaphanousPx0y0z = 0 == (opaqueBitMask & 1 << 1);
+        final var diaphanousPx0yPz = 0 == (opaqueBitMask & 1 << 22);
+//      final var diaphanousPxPyNz = 0 == (opaqueBitMask & 1 << 23);
+        final var diaphanousPxPy0z = 0 == (opaqueBitMask & 1 << 24);
+//      final var diaphanousPxPyPz = 0 == (opaqueBitMask & 1 << 25);
 
         updateSkyLightLevelForCorner(skyLightLevels, CORNER_NxNyNz, diaphanous0x0yNz, diaphanous0xNy0z, diaphanous0xNyNz, diaphanousNx0y0z, diaphanousNx0yNz, diaphanousNxNy0z, light0x0yNz, light0xNy0z, light0xNyNz, lightNx0y0z, lightNx0yNz, lightNxNy0z, lightNxNyNz);
         updateSkyLightLevelForCorner(skyLightLevels, CORNER_NxNyPz, diaphanous0x0yPz, diaphanous0xNy0z, diaphanous0xNyPz, diaphanousNx0y0z, diaphanousNx0yPz, diaphanousNxNy0z, light0x0yPz, light0xNy0z, light0xNyPz, lightNx0y0z, lightNx0yPz, lightNxNy0z, lightNxNyPz);
