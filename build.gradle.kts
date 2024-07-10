@@ -1,5 +1,5 @@
-import dev.crmodders.cosmicloom.extention.LoomGradleExtension.getCosmicQuilt;
-import dev.crmodders.cosmicloom.extention.LoomGradleExtension.getCosmicReach;
+import dev.crmodders.cosmicloom.extention.LoomGradleExtension.getCosmicQuilt
+import dev.crmodders.cosmicloom.extention.LoomGradleExtension.getCosmicReach
 
 object Constants {
     const val GROUP = "io.github.startsmercury"
