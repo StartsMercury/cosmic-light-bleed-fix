@@ -1,7 +1,5 @@
 package io.github.startsmercury.cosmic_light_bleed_fix.mixin.client;
 
-import static io.github.startsmercury.cosmic_light_bleed_fix.impl.client.CosmicLightBleedFix.*;
-
 import com.badlogic.gdx.utils.Array;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -9,6 +7,7 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import finalforeach.cosmicreach.rendering.ChunkMeshGroup;
 import finalforeach.cosmicreach.rendering.MeshData;
+import io.github.startsmercury.cosmic_light_bleed_fix.impl.client.CosmicLightBleedFix;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -65,7 +64,7 @@ public abstract class ChunkMeshGroupMixin {
     /**
      * Replaces block light level calculations with one that separates light coming
      * from an axis.
-     * 
+     *
      * @param callback the injector callback
      * @param blockLightLevels the block light levels to modify
      * @param opaqueBitMask the opaque bit mask identifies positions blocking light
@@ -161,14 +160,55 @@ public abstract class ChunkMeshGroupMixin {
         final var diaphanousPxPy0z = 0 == (opaqueBitMask & 1 << 24);
 //      final var diaphanousPxPyPz = 0 == (opaqueBitMask & 1 << 25);
 
-        updateBlockLightLevelForCorner(blockLightLevels, CORNER_NxNyNz, diaphanous0x0yNz, diaphanous0xNy0z, diaphanous0xNyNz, diaphanousNx0y0z, diaphanousNx0yNz, diaphanousNxNy0z, light0x0yNz, light0xNy0z, light0xNyNz, lightNx0y0z, lightNx0yNz, lightNxNy0z, lightNxNyNz);
-        updateBlockLightLevelForCorner(blockLightLevels, CORNER_NxNyPz, diaphanous0x0yPz, diaphanous0xNy0z, diaphanous0xNyPz, diaphanousNx0y0z, diaphanousNx0yPz, diaphanousNxNy0z, light0x0yPz, light0xNy0z, light0xNyPz, lightNx0y0z, lightNx0yPz, lightNxNy0z, lightNxNyPz);
-        updateBlockLightLevelForCorner(blockLightLevels, CORNER_NxPyNz, diaphanous0x0yNz, diaphanous0xPy0z, diaphanous0xPyNz, diaphanousNx0y0z, diaphanousNx0yNz, diaphanousNxPy0z, light0x0yNz, light0xPy0z, light0xPyNz, lightNx0y0z, lightNx0yNz, lightNxPy0z, lightNxPyNz);
-        updateBlockLightLevelForCorner(blockLightLevels, CORNER_NxPyPz, diaphanous0x0yPz, diaphanous0xPy0z, diaphanous0xPyPz, diaphanousNx0y0z, diaphanousNx0yPz, diaphanousNxPy0z, light0x0yPz, light0xPy0z, light0xPyPz, lightNx0y0z, lightNx0yPz, lightNxPy0z, lightNxPyPz);
-        updateBlockLightLevelForCorner(blockLightLevels, CORNER_PxNyNz, diaphanous0x0yNz, diaphanous0xNy0z, diaphanous0xNyNz, diaphanousPx0y0z, diaphanousPx0yNz, diaphanousPxNy0z, light0x0yNz, light0xNy0z, light0xNyNz, lightPx0y0z, lightPx0yNz, lightPxNy0z, lightPxNyNz);
-        updateBlockLightLevelForCorner(blockLightLevels, CORNER_PxNyPz, diaphanous0x0yPz, diaphanous0xNy0z, diaphanous0xNyPz, diaphanousPx0y0z, diaphanousPx0yPz, diaphanousPxNy0z, light0x0yPz, light0xNy0z, light0xNyPz, lightPx0y0z, lightPx0yPz, lightPxNy0z, lightPxNyPz);
-        updateBlockLightLevelForCorner(blockLightLevels, CORNER_PxPyNz, diaphanous0x0yNz, diaphanous0xPy0z, diaphanous0xPyNz, diaphanousPx0y0z, diaphanousPx0yNz, diaphanousPxPy0z, light0x0yNz, light0xPy0z, light0xPyNz, lightPx0y0z, lightPx0yNz, lightPxPy0z, lightPxPyNz);
-        updateBlockLightLevelForCorner(blockLightLevels, CORNER_PxPyPz, diaphanous0x0yPz, diaphanous0xPy0z, diaphanous0xPyPz, diaphanousPx0y0z, diaphanousPx0yPz, diaphanousPxPy0z, light0x0yPz, light0xPy0z, light0xPyPz, lightPx0y0z, lightPx0yPz, lightPxPy0z, lightPxPyPz);
+        CosmicLightBleedFix.updateLightLevels(
+            i -> blockLightLevels[i],
+            (i, ll) -> blockLightLevels[i] = (short) ll,
+            ChunkMeshGroup::getMaxBlockLight,
+            diaphanous0x0yNz,
+            diaphanous0xNy0z,
+            diaphanous0xNyNz,
+            diaphanousNx0y0z,
+            diaphanousNx0yNz,
+            diaphanousNxNy0z,
+            diaphanous0x0yPz,
+            diaphanous0xNyPz,
+            diaphanousNx0yPz,
+            diaphanous0xPy0z,
+            diaphanous0xPyNz,
+            diaphanousNxPy0z,
+            diaphanous0xPyPz,
+            diaphanousPx0y0z,
+            diaphanousPx0yNz,
+            diaphanousPxNy0z,
+            diaphanousPx0yPz,
+            diaphanousPxPy0z,
+            lightNxNyNz,
+            lightNxNy0z,
+            lightNxNyPz,
+            lightNx0yNz,
+            lightNx0y0z,
+            lightNx0yPz,
+            lightNxPyNz,
+            lightNxPy0z,
+            lightNxPyPz,
+            light0xNyNz,
+            light0xNy0z,
+            light0xNyPz,
+            light0x0yNz,
+            light0x0yPz,
+            light0xPyNz,
+            light0xPy0z,
+            light0xPyPz,
+            lightPxNyNz,
+            lightPxNy0z,
+            lightPxNyPz,
+            lightPx0yNz,
+            lightPx0y0z,
+            lightPx0yPz,
+            lightPxPyNz,
+            lightPxPy0z,
+            lightPxPyPz
+        );
 
         callback.setReturnValue(blockLightLevels);
         callback.cancel();
@@ -310,14 +350,55 @@ public abstract class ChunkMeshGroupMixin {
         final var diaphanousPxPy0z = 0 == (opaqueBitMask & 1 << 24);
 //      final var diaphanousPxPyPz = 0 == (opaqueBitMask & 1 << 25);
 
-        updateSkyLightLevelForCorner(skyLightLevels, CORNER_NxNyNz, diaphanous0x0yNz, diaphanous0xNy0z, diaphanous0xNyNz, diaphanousNx0y0z, diaphanousNx0yNz, diaphanousNxNy0z, light0x0yNz, light0xNy0z, light0xNyNz, lightNx0y0z, lightNx0yNz, lightNxNy0z, lightNxNyNz);
-        updateSkyLightLevelForCorner(skyLightLevels, CORNER_NxNyPz, diaphanous0x0yPz, diaphanous0xNy0z, diaphanous0xNyPz, diaphanousNx0y0z, diaphanousNx0yPz, diaphanousNxNy0z, light0x0yPz, light0xNy0z, light0xNyPz, lightNx0y0z, lightNx0yPz, lightNxNy0z, lightNxNyPz);
-        updateSkyLightLevelForCorner(skyLightLevels, CORNER_NxPyNz, diaphanous0x0yNz, diaphanous0xPy0z, diaphanous0xPyNz, diaphanousNx0y0z, diaphanousNx0yNz, diaphanousNxPy0z, light0x0yNz, light0xPy0z, light0xPyNz, lightNx0y0z, lightNx0yNz, lightNxPy0z, lightNxPyNz);
-        updateSkyLightLevelForCorner(skyLightLevels, CORNER_NxPyPz, diaphanous0x0yPz, diaphanous0xPy0z, diaphanous0xPyPz, diaphanousNx0y0z, diaphanousNx0yPz, diaphanousNxPy0z, light0x0yPz, light0xPy0z, light0xPyPz, lightNx0y0z, lightNx0yPz, lightNxPy0z, lightNxPyPz);
-        updateSkyLightLevelForCorner(skyLightLevels, CORNER_PxNyNz, diaphanous0x0yNz, diaphanous0xNy0z, diaphanous0xNyNz, diaphanousPx0y0z, diaphanousPx0yNz, diaphanousPxNy0z, light0x0yNz, light0xNy0z, light0xNyNz, lightPx0y0z, lightPx0yNz, lightPxNy0z, lightPxNyNz);
-        updateSkyLightLevelForCorner(skyLightLevels, CORNER_PxNyPz, diaphanous0x0yPz, diaphanous0xNy0z, diaphanous0xNyPz, diaphanousPx0y0z, diaphanousPx0yPz, diaphanousPxNy0z, light0x0yPz, light0xNy0z, light0xNyPz, lightPx0y0z, lightPx0yPz, lightPxNy0z, lightPxNyPz);
-        updateSkyLightLevelForCorner(skyLightLevels, CORNER_PxPyNz, diaphanous0x0yNz, diaphanous0xPy0z, diaphanous0xPyNz, diaphanousPx0y0z, diaphanousPx0yNz, diaphanousPxPy0z, light0x0yNz, light0xPy0z, light0xPyNz, lightPx0y0z, lightPx0yNz, lightPxPy0z, lightPxPyNz);
-        updateSkyLightLevelForCorner(skyLightLevels, CORNER_PxPyPz, diaphanous0x0yPz, diaphanous0xPy0z, diaphanous0xPyPz, diaphanousPx0y0z, diaphanousPx0yPz, diaphanousPxPy0z, light0x0yPz, light0xPy0z, light0xPyPz, lightPx0y0z, lightPx0yPz, lightPxPy0z, lightPxPyPz);
+        CosmicLightBleedFix.updateLightLevels(
+            i -> skyLightLevels[i],
+            (i, ll) -> skyLightLevels[i] = ll,
+            Math::max,
+            diaphanous0x0yNz,
+            diaphanous0xNy0z,
+            diaphanous0xNyNz,
+            diaphanousNx0y0z,
+            diaphanousNx0yNz,
+            diaphanousNxNy0z,
+            diaphanous0x0yPz,
+            diaphanous0xNyPz,
+            diaphanousNx0yPz,
+            diaphanous0xPy0z,
+            diaphanous0xPyNz,
+            diaphanousNxPy0z,
+            diaphanous0xPyPz,
+            diaphanousPx0y0z,
+            diaphanousPx0yNz,
+            diaphanousPxNy0z,
+            diaphanousPx0yPz,
+            diaphanousPxPy0z,
+            lightNxNyNz,
+            lightNxNy0z,
+            lightNxNyPz,
+            lightNx0yNz,
+            lightNx0y0z,
+            lightNx0yPz,
+            lightNxPyNz,
+            lightNxPy0z,
+            lightNxPyPz,
+            light0xNyNz,
+            light0xNy0z,
+            light0xNyPz,
+            light0x0yNz,
+            light0x0yPz,
+            light0xPyNz,
+            light0xPy0z,
+            light0xPyPz,
+            lightPxNyNz,
+            lightPxNy0z,
+            lightPxNyPz,
+            lightPx0yNz,
+            lightPx0y0z,
+            lightPx0yPz,
+            lightPxPyNz,
+            lightPxPy0z,
+            lightPxPyPz
+        );
 
         callback.setReturnValue(skyLightLevels);
         callback.cancel();
