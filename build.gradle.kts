@@ -8,7 +8,7 @@ object Constants {
 
     const val DISPLAY_NAME = "Cosmic Light Bleed Fix"
 
-    const val VERSION_COSMIC_REACH = "0.1.42"
+    const val VERSION_COSMIC_REACH = "0.1.43"
     const val VERSION_COSMIC_QUILT = "2.1.1"
     const val VERSION_JAVA = "17"
     const val VERSION_MODMENU = "1.0.5"
