@@ -1,9 +1,9 @@
 # Cosmic Light Bleed Fix
 
 Fixes light passing through solid corners or "bleeding" for Cosmic Reach
-`0.1.39`.
+`0.1.41`.
 
-|  Fix (Mod Installed)   | Issue (Cosmic Reach as of 0.1.39)  |
+|  Fix (Mod Installed)   | Issue (Cosmic Reach as of 0.1.41)  |
 |:----------------------:|:----------------------------------:|
 | ![dark-scene-with-mod] |     ![dark-scene-without-mod]      |
 

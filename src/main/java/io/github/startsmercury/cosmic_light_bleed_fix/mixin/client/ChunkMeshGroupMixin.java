@@ -30,7 +30,7 @@ public abstract class ChunkMeshGroupMixin {
     @ModifyExpressionValue(
         method = """
             getMeshData(\
-                Lfinalforeach/cosmicreach/savelib/ISavedChunk;\
+                Lfinalforeach/cosmicreach/world/Chunk;\
             )Lcom/badlogic/gdx/utils/Array;\
         """,
         at = @At(value = "CONSTANT", args = "intValue=8", ordinal = 0)
@@ -51,7 +51,7 @@ public abstract class ChunkMeshGroupMixin {
     @ModifyExpressionValue(
         method = """
             getMeshData(\
-                Lfinalforeach/cosmicreach/savelib/ISavedChunk;\
+                Lfinalforeach/cosmicreach/world/Chunk;\
             )Lcom/badlogic/gdx/utils/Array;\
         """,
         at = @At(value = "CONSTANT", args = "intValue=8", ordinal = 1)
@@ -230,7 +230,7 @@ public abstract class ChunkMeshGroupMixin {
     private static void sendOpaqueBitMask(
         final CallbackInfoReturnable<Array<MeshData>> callback,
         final @Local(ordinal = 0) int[] skyLightLevels,
-        final @Local(ordinal = 12) int opaqueBitMask
+        final @Local(ordinal = 10) int opaqueBitMask
     ) {
         skyLightLevels[24] = opaqueBitMask;
     }
