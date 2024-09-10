@@ -14,12 +14,19 @@ object Constants {
 
 plugins {
     `java-library`
+    `maven-publish`
     id("cosmicloom")
 }
 
-base {
+if (group == path.substring(1).replace(':', '.')) {
     group = Constants.GROUP
+}
+
+base {
     archivesName = Constants.MODID
+}
+
+if (Project.DEFAULT_VERSION == version) {
     version = createVersionString()
 }
 
@@ -35,7 +42,7 @@ dependencies {
     cosmicReach(getCosmicReach("pre-alpha", Constants.VERSION_COSMIC_REACH))
 
     // Cosmic Quilt
-    modImplementation(getCosmicQuilt("2.1.1"))
+    modImplementation(getCosmicQuilt("2.2.0"))
 
     // Mod Menu
     modImplementation(
@@ -94,6 +101,14 @@ tasks {
         classpath = files(sourceSets.main.get().compileClasspath)
         include("**/api/**")
         isFailOnError = true
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+        }
     }
 }
 
