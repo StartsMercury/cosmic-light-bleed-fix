@@ -12,11 +12,12 @@ Fixes light passing through solid corners or "bleeding" for Cosmic Reach
 
 ## Downloads
 
-Cosmic Light Bleed Fix is currently only officially available on GitHub. All
-published version of this mod are in
-[Releases](https://github.com/StartsMercury/cosmic-light-bleed-fix/releases):
+Cosmic Light Bleed Fix is only officially available on CRRM and GitHub. All
+published version of this mod are both in
+[CRRM](https://www.crmm.tech/mod/cosmic-light-bleed-fix/versions) and [GitHub Releases](https://github.com/StartsMercury/cosmic-light-bleed-fix/releases):
 
-> <https://github.com/StartsMercury/cosmic-light-bleed-fix/releases>
+> * <https://www.crmm.tech/mod/cosmic-light-bleed-fix/versions>
+> * <https://github.com/StartsMercury/cosmic-light-bleed-fix/releases>
 
 ---
 
