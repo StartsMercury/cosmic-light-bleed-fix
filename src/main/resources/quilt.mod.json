@@ -20,7 +20,7 @@
                 "sources": "https://github.com/StartsMercury/cosmic-light-bleed-fix"
             },
 
-            "icon": "assets/cosmic-light-bleed-fix/icon.png"
+            "icon": "cosmic-light-bleed-fix/textures/icon.png"
         },
 
         "entrypoints": {
