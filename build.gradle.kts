@@ -48,7 +48,7 @@ dependencies {
     modImplementation(
         group = "org.codeberg.CRModders",
         name = "modmenu",
-        version = "1.0.7",
+        version = "1.0.8",
     )
 }
 
