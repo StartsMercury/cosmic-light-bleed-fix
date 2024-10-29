@@ -42,7 +42,7 @@ dependencies {
     cosmicReach(getCosmicReach("pre-alpha", Constants.VERSION_COSMIC_REACH))
 
     // Cosmic Quilt
-    modImplementation(getCosmicQuilt("2.2.0"))
+    modImplementation(getCosmicQuilt("2.3.1"))
 
     // Mod Menu
     modImplementation(
