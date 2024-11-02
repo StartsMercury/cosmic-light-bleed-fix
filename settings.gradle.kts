@@ -11,7 +11,7 @@ buildscript {
         classpath(
             group = "org.codeberg.CRModders",
             name = "cosmic-loom",
-            version = "1.1.0",
+            version = "PR7-SNAPSHOT",
         )
     }
 }
