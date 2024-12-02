@@ -8,7 +8,7 @@ object Constants {
 
     const val DISPLAY_NAME = "Cosmic Light Bleed Fix"
 
-    const val VERSION_COSMIC_REACH = "0.3.7"
+    const val VERSION_COSMIC_REACH = "0.3.9"
     const val VERSION_JAVA = "17"
 }
 
@@ -42,7 +42,7 @@ dependencies {
     cosmicReach(getCosmicReach("pre-alpha", Constants.VERSION_COSMIC_REACH))
 
     // Cosmic Quilt
-    modImplementation(getCosmicQuilt("2.3.1"))
+    modImplementation(getCosmicQuilt("33fd6af7360759911cc1430f4b8016e984c52f75"))
 
     // Mod Menu
     modImplementation(
