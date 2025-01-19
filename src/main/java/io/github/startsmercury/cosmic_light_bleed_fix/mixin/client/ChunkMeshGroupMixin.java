@@ -6,7 +6,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import finalforeach.cosmicreach.rendering.ChunkMeshGroup;
-import finalforeach.cosmicreach.rendering.MeshData;
+import finalforeach.cosmicreach.rendering.meshes.MeshData;
 import io.github.startsmercury.cosmic_light_bleed_fix.impl.client.CosmicLightBleedFix;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
